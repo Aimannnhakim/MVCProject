@@ -1,0 +1,66 @@
+﻿<head>
+
+    <script src="~/Scripts/Chart.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Chart.min.css" rel="stylesheet" />
+
+
+    <style>
+        #chart_container {
+            width: 400px;
+            height: 400px;
+            border: 1px solid #000000;
+            padding: 1px;
+            border-radius: 2px;
+        }
+    </style>
+
+</head>
+
+
+<body>
+    <div id="=" chart_container">
+        <canvas id="bar_chart"></canvas>
+    </div>
+
+    <script>
+    
+        var myLabels = @Html.Raw(Json.Encode(ViewBag.lbl));
+        var myData = @Html.Raw(Json.Encode(ViewBag.vlu));
+
+        var ctx = $("#bar_chart");
+        var BarChart = new Chart(ctx, {
+
+            type: 'bar',
+            data: {
+
+                labels: myLabels,
+                datasets: [{
+                    label: "Count",
+                    data: myData,
+                    backgroundColor: ["rgba(242,166,54,.5)", "rgba(242,166,54,.5)"],
+                    borderColor: ["rgba(242,166,54,.5)", "rgba(242,166,54,.5)"],
+                    borderWidth: 1,
+                    scale: 0,
+                }] 
+            },
+
+            option: {
+                //maintainAspectRatio: false,
+                scaleBeginAtZero: true,
+                scaleStartValue: 0,
+                responsive: true,
+                scales: {
+                    //xAxes: [{ticks: { beginAtZero: true, min: 5 }}],
+                    yAxes: [{ ticks: { display: true,beginAtZero: true,min:0, stepSize: 0.5}}]
+                },
+
+
+                legend: { display: false }
+            }
+        })
+
+    </script>
+</body>
